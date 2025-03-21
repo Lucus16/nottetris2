@@ -235,7 +235,7 @@ function endblockB()
 
 		for i, v in pairs(tetrifixtures[1]) do
 			tetrishapes[highestbody()][i] = tetrishapes[1][i]
-			tetrishapes[highestbody()][i]:setData({highestbody()})
+			tetrishapes[highestbody()][i]:setUserData({highestbody()})
 			tetrifixtures[highestbody()][i] = tetrifixtures[1][i]
 			tetrifixtures[highestbody()][i]:setUserData({highestbody()})
 		end

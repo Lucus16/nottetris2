@@ -26,8 +26,8 @@ function failed_draw()
 
 	-- Draw scores.
 	-- "score"
-	local offsetX = 0
-	local scorestring = tostring(scorescore)
+	offsetX = 0
+	scorestring = tostring(scorescore)
 	for i = 1, #scorestring - 1 do
 		offsetX = offsetX - 8 * scale
 	end
