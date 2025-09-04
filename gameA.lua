@@ -403,8 +403,8 @@ function gameA_update(dt)
 end
 
 function getintersectX(shape, y) -- returns left and right collision points to a certain shape on a Y coordinate (or -1, -0.9 if no collision)
-	local lefttime = shape:rayCast( 55, y, 385, y, 1)
-	local righttime = shape:rayCast( 385, y, 55, y, 1)
+	local _, _, lefttime = shape:rayCast( 55, y, 385, y, 1)
+	local _, _, righttime = shape:rayCast( 385, y, 55, y, 1)
 	if lefttime and righttime then
 		local leftx = 330 * lefttime + 55
 		local rightx = 385 - 330 * righttime
