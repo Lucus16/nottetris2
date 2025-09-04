@@ -796,8 +796,8 @@ function table2string(mytable)
 	return output
 end
 
-function getPoints2table(shape)
-	x1,y1,x2,y2,x3,y3,x4,y4,x5,y5,x6,y6,x7,y7,x8,y8 = shape:getPoints()
+function getPoints2table(thing)
+	x1,y1,x2,y2,x3,y3,x4,y4,x5,y5,x6,y6,x7,y7,x8,y8 = thing:getBody():getWorldPoints(thing:getShape():getPoints())
 	if x4 == nil then
 		return {x1,y1,x2,y2,x3,y3}
 	end

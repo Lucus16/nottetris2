@@ -463,7 +463,7 @@ function removeline(lineno) -- Does all necessary things to clear a line. Refine
 				inside = false
 				below = false
 				coordinateproperties[i-ioffset][j] = {}
-				coordinates = getPoints2table(w:getShape())
+				coordinates = getPoints2table(w)
 				
 				for y = 1, #coordinates, 2 do -- Every Point
 					if coordinates[y+1] < upperline then -- POINT ABOVE CUTRECT
@@ -495,7 +495,7 @@ function removeline(lineno) -- Does all necessary things to clear a line. Refine
 					tetrifixturescopy[#tetrifixturescopy+1]=refineshape(lowerline, -1, i-ioffset, v, j, w)
 					refined = true
 				else
-					cotable = getPoints2table(tetrifixtures[i-ioffset][j]:getShape())
+					cotable = getPoints2table(tetrifixtures[i-ioffset][j])
 					for var = 1, #cotable, 2 do
 						cotable[var], cotable[var+1] = tetribodies[i-ioffset]:getLocalPoint(cotable[var], cotable[var+1])
 					end
@@ -534,9 +534,9 @@ function removeline(lineno) -- Does all necessary things to clear a line. Refine
 				numberofgroups = 0
 				for a, b in pairs(tetrifixturescopy) do -- through all shapes
 					shapegroups[a] = 0
-					currentcoords = getPoints2table(b:getShape())
+					currentcoords = getPoints2table(b)
 					for shapecounter = 1, a - 1 do -- Through all previously set groups
-						coords = getPoints2table(tetrifixturescopy[shapecounter]:getShape())
+						coords = getPoints2table(tetrifixturescopy[shapecounter])
 						for currentcoordsvar = 1, #currentcoords/2 do -- through all coords in the current shape
 							for coordsvar = 1, #coords/2 do -- through all coords in all previously set groups (Holy shit 6 stacked "for" loops; I code like an asshole!)
 								if math.abs(currentcoords[currentcoordsvar*2-1] - coords[coordsvar*2-1]) < 2 and math.abs(currentcoords[currentcoordsvar*2] - coords[coordsvar*2]) < 2 then
@@ -566,7 +566,7 @@ function removeline(lineno) -- Does all necessary things to clear a line. Refine
 						-- body destruction mechanism needs to be reworked
 						for b, c in pairs(tetrifixturescopy) do
 							if shapegroups[b] == a then
-								cotable = getPoints2table(tetrifixturescopy[b]:getShape())
+								cotable = getPoints2table(tetrifixturescopy[b])
 								for var = 1, #cotable, 2 do
 									cotable[var], cotable[var+1] = tetribodies[i-ioffset]:getLocalPoint(cotable[var], cotable[var+1])
 								end
@@ -605,7 +605,7 @@ function removeline(lineno) -- Does all necessary things to clear a line. Refine
 						
 						for b, c in pairs(tetrifixturescopy) do
 							if shapegroups[b] == a then
-								cotable = getPoints2table(tetrifixturescopy[b]:getShape())
+								cotable = getPoints2table(tetrifixturescopy[b])
 								for var = 1, #cotable, 2 do
 									cotable[var], cotable[var+1] = tetribodies[i-ioffset]:getLocalPoint(cotable[var], cotable[var+1])
 								end
@@ -689,7 +689,7 @@ function cutimage(bodyid, numberofgroups) -- cuts the image of a body based on i
 	end
 	
 	-- get if to chose lower or upper line
-	local posy = getPoints2table(tetrifixtures[bodyid][1]:getShape())
+	local posy = getPoints2table(tetrifixtures[bodyid][1])
 	posy = posy[2]
 	
 	if posy > (upperline + lowerline) / 2 then
@@ -713,7 +713,7 @@ function cutimage(bodyid, numberofgroups) -- cuts the image of a body based on i
 	-- find out the limits of there's more than 1 body being created
 	if numberofgroups > 1 then
 		for s = 1, #tetrifixtures[bodyid] do
-			local cotable = getPoints2table(tetrifixtures[bodyid][s]:getShape())
+			local cotable = getPoints2table(tetrifixtures[bodyid][s])
 			for i = 1, #cotable, 2 do
 				local x, y = tetribodies[bodyid]:getLocalPoint(cotable[i], cotable[i+1])
 				x = x+width/2
@@ -772,7 +772,7 @@ end
 function refineshape(line, mult, bodyid, body, shapeid, shape) -- refines a shape using the old coordinates and the cutting line
 	local leftx, rightx = getintersectX(tetrifixtures[bodyid][shapeid], line)
 	if leftx ~= -1 then -- Not sure what to do if not
-		local coords = getPoints2table(tetrifixtures[bodyid][shapeid]:getShape())
+		local coords = getPoints2table(tetrifixtures[bodyid][shapeid])
 		
 		-- remove all points inside the cutting zone
 		local lastcutoff
@@ -825,7 +825,7 @@ function refineshape(line, mult, bodyid, body, shapeid, shape) -- refines a shap
 			print("#coords")
 		end
 	else
-		local coords = getPoints2table(tetrifixtures[bodyid][shapeid]:getShape())
+		local coords = getPoints2table(tetrifixtures[bodyid][shapeid])
 		local newcoords={}
 		for i=1,#coords,2 do
 			newcoords[i],newcoords[i+1] = body:getLocalPoint(coords[i], coords[i+1])
@@ -851,7 +851,7 @@ function checklinedensity(active) -- checks all 18 lines and, if active == true,
 	
 	for i = 2, #tetribodies do
 		for j, k in pairs(tetrifixtures[i]) do
-			local coords = getPoints2table(k:getShape())
+			local coords = getPoints2table(k)
 			-- Get first and last involved line
 			local firstline = 19
 			local lastline =  0
@@ -866,7 +866,7 @@ function checklinedensity(active) -- checks all 18 lines and, if active == true,
 			
 			for line = firstline, lastline do
 				if line >= 1 and line <= 18 then
-					coords = getPoints2table(k:getShape())
+					coords = getPoints2table(k)
 					
 					if line > firstline then
 						local offset = 0
