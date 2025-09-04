@@ -599,7 +599,8 @@ function removeline(lineno) -- Does all necessary things to clear a line. Refine
 						end
 						
 					else -- create new bodyid
-						tetribodies[highestbody()+1] = love.physics.newBody(world, tetribodies[i-ioffset]:getX(), tetribodies[i-ioffset]:getY(), tetribodies[i-ioffset]:getMass(), blockrot)
+						tetribodies[highestbody()+1] = love.physics.newBody(world, tetribodies[i-ioffset]:getX(), tetribodies[i-ioffset]:getY(), "dynamic")
+						tetribodies[highestbody()]:setMass(tetribodies[i-ioffset]:getMass())
 						tetribodies[highestbody()]:setAngle(tetribodies[i-ioffset]:getAngle())
 						tetrifixtures[highestbody()] = {}
 						
@@ -609,7 +610,7 @@ function removeline(lineno) -- Does all necessary things to clear a line. Refine
 								for var = 1, #cotable, 2 do
 									cotable[var], cotable[var+1] = tetribodies[i-ioffset]:getLocalPoint(cotable[var], cotable[var+1])
 								end
-								tetrifixtures[highestbody()][#tetrifixtures[highestbody()]+1] = love.physics.newPolygonShape(tetribodies[highestbody()], unpack(cotable))
+								tetrifixtures[highestbody()][#tetrifixtures[highestbody()]+1] = love.physics.newFixture(tetribodies[highestbody()], love.physics.newPolygonShape(unpack(cotable)), 1.0)
 								tetrifixtures[highestbody()][#tetrifixtures[highestbody()]]:setUserData({highestbody()}) -- set the shape name for collision
 							end
 						end
