@@ -329,6 +329,8 @@ function loadimages()
 	-- font --
 	tetrisfont = newPaddedImageFont("graphics/font.png", "0123456789abcdefghijklmnopqrstTuvwxyz.,'C-#_>:<! ")
 	whitefont = newPaddedImageFont("graphics/fontwhite.png", "0123456789abcdefghijklmnopqrstTuvwxyz.,'C-#_>:<!+ ")
+	tetrisfont:setFilter("linear", "nearest")
+	whitefont:setFilter("linear", "nearest")
 	love.graphics.setFont(tetrisfont)
 	
 	-- filters!
